@@ -92,7 +92,7 @@ for(t = time0bit;; t = time0bit){
 }
 
 void Ledsticklib::advancedcolor(uint16_t pixel, uint32_t colors){
-    if(pixel < numleds){
+    if(pixel < 8){
         uint8_t *p,
         red = (uint8_t)(colors >> 16),
         green = (uint8_t)(colors >> 8),
@@ -102,7 +102,20 @@ void Ledsticklib::advancedcolor(uint16_t pixel, uint32_t colors){
         p[green_offset] = green;
         p[blue_offset] = blue;
     }
+    if(pixel == 8){
+        uint8_t *p,
+        red = (uint8_t)(colors >> 16),
+        green = (uint8_t)(colors >> 8),
+        blue = (uint8_t)colors;
+        for(uint16_t i = 0; i < 8; i++){
+        p = &Byte[i * 3];
+        p[red_offset] = red;
+        p[green_offset] = green;
+        p[blue_offset] = blue;
+    }
 }
+}
+
 
 void Ledsticklib::reset(void){
     memset(Byte, 0, all_Bytes);

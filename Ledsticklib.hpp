@@ -7,7 +7,7 @@
  #include <pins_arduino.h>
 #endif 
 
-#define RGB ((0<<6) | (0<<4) | (1<<2) | (2))
+#define RGB ((1<<6) | (1<<4) | (0<<2) | (2))
 
 
 class Ledsticklib{

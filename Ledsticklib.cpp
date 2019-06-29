@@ -117,6 +117,179 @@ void Ledsticklib::advancedcolor(uint16_t pixel, uint32_t colors){
 }
 
 
+void Ledsticklib::simplecolor(uint16_t pixel, char color[]){
+}
+
+
+void Ledsticklib::blinkled(uint16_t pixel){
+        this->reset();
+        this->advancedcolor(pixel, color(100,50,50));
+        this->flush();
+        delay(500);
+        this->advancedcolor(pixel, color(0,0,0));
+        this->flush();
+         delay(500);
+}
+
+void Ledsticklib::blinkled(uint16_t pixel, uint32_t c){
+        this->reset();
+        this->advancedcolor(pixel, c);
+        this->flush();
+        delay(500);
+        this->advancedcolor(pixel, color(0,0,0));
+        this->flush();
+         delay(500);
+}
+
+void Ledsticklib::blinkled(uint16_t pixel, int d){
+        this->reset();
+        this->advancedcolor(pixel, color(50,50,50));
+        this->flush();
+        delay(d);
+        this->advancedcolor(pixel, color(0,0,0));
+        this->flush();
+        delay(d);
+}
+
+void Ledsticklib::blinkled(uint16_t pixel, uint32_t c, int d){
+        this->reset();
+        this->advancedcolor(pixel, c);
+        this->flush();
+        delay(d);
+        this->advancedcolor(pixel, color(0,0,0));
+        this->flush();
+        delay(d);
+}
+
+void Ledsticklib::kitt(){
+    uint32_t c = color(50, 50 ,50);
+    for(int i = 0; i < 8; i++){
+        reset();
+        this->advancedcolor(i, c);
+        this->flush();
+        delay(500);
+    }
+     for(int i = 7; i >= 0; i--){
+        reset();
+        this->advancedcolor(i, c);
+        this->flush();
+        delay(500);
+    }
+}
+
+void Ledsticklib::kitt(uint32_t c){
+    for(int i = 0; i < 8; i++){
+        reset();
+        this->advancedcolor(i, c);
+        this->flush();
+        delay(500);
+    }
+     for(int i = 7; i >= 0; i--){
+        reset();
+        this->advancedcolor(i, c);
+        this->flush();
+        delay(500);
+    }
+}
+
+void Ledsticklib::kitt(int d){
+    uint32_t c = color(50, 50 ,50);
+    for(int i = 0; i < 8; i++){
+        reset();
+        this->advancedcolor(i, c);
+        this->flush();
+        delay(d);
+    }
+     for(int i = 7; i >= 0; i--){
+        reset();
+        this->advancedcolor(i, c);
+        this->flush();
+        delay(d);
+    }
+}
+
+void Ledsticklib::kitt(uint32_t c, int d){
+    for(int i = 0; i < 8; i++){
+        reset();
+        this->advancedcolor(i, c);
+        this->flush();
+        delay(d);
+    }
+     for(int i = 7; i >= 0; i--){
+        reset();
+        this->advancedcolor(i, c);
+        this->flush();
+        delay(d);
+    }
+}
+
+void Ledsticklib::cyclecolor(uint16_t pixel){
+    int redvalue = 50;
+    int greenvalue = 0;
+    int bluevalue = 0;
+    int totalcycle = 6;
+    for(int i = 0; i < totalcycle; i++){
+        this->reset();
+        uint32_t c = color(redvalue, greenvalue, bluevalue);
+        this->advancedcolor(pixel, c);
+        this->flush();
+        delay(100);
+       if(i < 1){
+           greenvalue = 50;
+       }
+        else if (i < 2){
+          redvalue = 0;
+        }
+        else if (i < 3){
+            bluevalue = 50;
+        }
+        else if (i < 4){
+            greenvalue = 0;
+        }
+        else if (i < 5){
+            redvalue =  50;
+        }
+        else if (i < 6){
+            bluevalue = 0;
+        }
+      
+}
+}
+
+void Ledsticklib::rainbow(uint16_t pixel){
+    int redvalue = 50;
+    int greenvalue = 0;
+    int bluevalue = 0;
+    int totalcycle = 300;
+    for(int i = 0; i <= totalcycle; i++){
+        this->reset();
+        uint32_t c = color(redvalue, greenvalue, bluevalue);
+        this->advancedcolor(pixel, c);
+        this->flush();
+        delay(25);
+       if(i < 51){
+           greenvalue++;
+       }
+        else if (i < 101){
+          redvalue--;
+        }
+        else if (i < 151){
+            bluevalue++;
+        }
+        else if (i < 201){
+            greenvalue--;
+        }
+        else if (i < 251){
+            redvalue++;
+        }
+        else if (i < 301 ){
+            bluevalue--;
+        }
+      
+}
+}
+
+
 void Ledsticklib::reset(void){
     memset(Byte, 0, all_Bytes);
 }

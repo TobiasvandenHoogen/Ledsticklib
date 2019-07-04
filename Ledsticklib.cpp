@@ -1,5 +1,16 @@
+/*!
+@file Ledsticklib.cpp
+*This is the source file of the Ledsticklib library. 
+ */
 #include "Ledsticklib.hpp"
 
+/*!
+@brief
+*This is the constructor of the class. In the contructor are three types configured.
+*The color, the pixellenght and the pin.
+@param
+*pin  The pin which de ledstick is connected to.
+*/
 Ledsticklib::Ledsticklib(uint8_t pin) :
 configured(false), Byte(NULL), Latch_time(0) {
     confcolor(RGB);
@@ -7,18 +18,35 @@ configured(false), Byte(NULL), Latch_time(0) {
     confpin(pin);
 }
 
+/*!
+@brief
+*This function will set the Ledstick as output and is required for the basic
+*and special functions.
+*/
 void Ledsticklib::start(void){
 pinMode(pin, OUTPUT);
 digitalWrite(pin, LOW);
 configured = true;
 }
 
+/*!
+@brief
+ This function configures the colorvalue and is part of the constructor.
+@param
+ color   this is the RBG value declared in the header file
+*/
 void Ledsticklib::confcolor(uint16_t color){
     red_offset = (color >> 4) & 0b11;
     green_offset = (color >> 2) & 0b11;
     blue_offset = color & 0b11;
 }
 
+
+/*!
+@brief
+ This function configures the pixel and allocates all_Bytes.
+ @param
+*/
 void Ledsticklib::confpixels(){
 free(Byte);
 all_Bytes = 24;
@@ -28,6 +56,12 @@ if((Byte = (uint8_t *) malloc(all_Bytes))){
    }
 }
 
+/*!
+@brief
+*This function configures the pin and sets the Ledstick as output.
+@param
+pin  The pin which de ledstick is connected to.
+*/
 void Ledsticklib::confpin(uint8_t p){
     if(configured) pinMode(pin, INPUT);
     pin = p;
@@ -37,6 +71,11 @@ void Ledsticklib::confpin(uint8_t p){
     }
 }
 
+/*!
+@brief 
+*This function sends the set byte(which is determined by advancedcolor)
+*to the Ledstick.
+*/
 void Ledsticklib::flush(void){
 noInterrupts();
 
@@ -91,6 +130,14 @@ for(t = time0bit;; t = time0bit){
     Latch_time = micros();
 }
 
+/*!
+@brief advancedcolor
+*This function sets the variabele byte to a colorvalue of a pixel.
+param
+pixel  The pixel of the ledstick from 0 to 7. Give 8 for all pixels.
+param c      The 32 bit color value which can be used to blink the pixel in a different
+       color.
+*/
 void Ledsticklib::advancedcolor(uint16_t pixel, uint32_t colors){
     if(pixel < 8){
         uint8_t *p,
@@ -120,7 +167,16 @@ void Ledsticklib::advancedcolor(uint16_t pixel, uint32_t colors){
 void Ledsticklib::simplecolor(uint16_t pixel, char color[]){
 }
 
-
+/*!
+@brief 
+ This function repeatedly turns a pixel on and off and has required and 
+ optional parameters.
+@param
+pixel  The pixel of the ledstick from 0 to 7. Give 8 for all pixels.
+@paramc      The 32 bit color value which can be used to blink the pixel in a different
+       color.
+@paramd      Delay which can be used to blink the pixel faster/slower.
+*/
 void Ledsticklib::blinkled(uint16_t pixel){
         this->reset();
         this->advancedcolor(pixel, color(100,50,50));
@@ -161,6 +217,14 @@ void Ledsticklib::blinkled(uint16_t pixel, uint32_t c, int d){
         delay(d);
 }
 
+/*!
+@brief
+This function turns on a pixel one at the time from left to right and has 
+optional parameters.
+@param c      The 32 bit color value which can be used to blink the pixel in a different
+       color.
+@param d      Delay which can be used to blink the pixel faster/slower.
+*/
 void Ledsticklib::kitt(){
     uint32_t c = color(50, 50 ,50);
     for(int i = 0; i < 8; i++){
@@ -173,7 +237,7 @@ void Ledsticklib::kitt(){
         reset();
         this->advancedcolor(i, c);
         this->flush();
-        delay(500);
+        delay(50);
     }
 }
 
@@ -182,7 +246,7 @@ void Ledsticklib::kitt(uint32_t c){
         reset();
         this->advancedcolor(i, c);
         this->flush();
-        delay(500);
+        delay(50);
     }
      for(int i = 7; i >= 0; i--){
         reset();
@@ -223,6 +287,12 @@ void Ledsticklib::kitt(uint32_t c, int d){
     }
 }
 
+/*!
+@brief
+*This function changes color of each pixel every 100 miliseconds.
+@param
+*pixel  The pixel of the ledstick from 0 to 7. Give 8 for all pixels.
+*/
 void Ledsticklib::cyclecolor(uint16_t pixel){
     int redvalue = 50;
     int greenvalue = 0;
@@ -255,7 +325,13 @@ void Ledsticklib::cyclecolor(uint16_t pixel){
       
 }
 }
-
+/*!
+@brief
+*This function changes color of each pixel but instead of the function 
+*cyclecolor it changes color gradually instead of suddenly.
+@param
+*pixel  The pixel of the ledstick from 0 to 7. Give 8 for all pixels.
+*/
 void Ledsticklib::rainbow(uint16_t pixel){
     int redvalue = 50;
     int greenvalue = 0;
@@ -289,9 +365,11 @@ void Ledsticklib::rainbow(uint16_t pixel){
 }
 }
 
-
+/*!
+@brief
+*This function resets Byte so that new bytes can be send again.
+*/
 void Ledsticklib::reset(void){
     memset(Byte, 0, all_Bytes);
 }
-
 

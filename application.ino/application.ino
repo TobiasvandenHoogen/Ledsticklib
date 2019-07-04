@@ -3,7 +3,7 @@
 #include "Ledsticklib.hpp"
 
 class application{
-private:
+protected:
 int leftposition = 3;
 int rightposition = 4;
 int* sticks;

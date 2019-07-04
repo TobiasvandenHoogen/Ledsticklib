@@ -52,7 +52,6 @@ free(Byte);
 all_Bytes = 24;
 if((Byte = (uint8_t *) malloc(all_Bytes))){
     memset(Byte, 0, all_Bytes);
-    all_pixels = 8;
    }
 }
 

@@ -22,6 +22,7 @@ void waiting();
 void fall();
 void apple(int number);
 void basket();
+void test();
 };
 
 #endif

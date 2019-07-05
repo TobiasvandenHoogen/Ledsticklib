@@ -12,12 +12,8 @@ in the class are elaborated in the cpp file.
 
 #ifndef LEDSTICKLIB_HPP
 #define LEDSTICKLIB_HPP
-#if (ARDUINO >= 100)
- #include <Arduino.h>
-#else
- #include <WProgram.h>
- #include <pins_arduino.h>
-#endif 
+
+#include <Arduino.h>
 
 
 #define RGB ((1<<6) | (1<<4) | (0<<2) | (2))
@@ -40,7 +36,6 @@ uint32_t Latch_time;
 uint8_t red_offset;
 uint8_t green_offset;
 uint8_t blue_offset;
-
 public:
 Ledsticklib(uint8_t pin);
 
@@ -54,8 +49,6 @@ void confcolor(uint16_t color);
 void confpixels();
 
 void advancedcolor(uint16_t pixel, uint32_t color);
-
-void simplecolor(uint16_t pixel, char color[]);
 
 void flush(void);
 
@@ -73,8 +66,6 @@ void blinkled(uint16_t pixel, uint32_t c);
 void blinkled(uint16_t pixel, int d);
 
 void blinkled(uint16_t pixel, uint32_t c, int d);
-
-void blinkall();
 
 void kitt();
 

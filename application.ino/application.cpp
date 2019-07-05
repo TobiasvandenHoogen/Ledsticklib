@@ -4,9 +4,6 @@ void application::main_application(){
  if(start == false){
     this->waiting(); 
  }
- else if( start == true){
-   this->fall();
- }
 }
 
 void application::waiting(){
@@ -35,7 +32,7 @@ int ledstickon = 6;
 this->apple(randomnumber);
 }
 
-void application::apple(){
+void application::apple(int pixel){
   for(int i = 6; i >= 1; i--){
     int pin = sticks[i];
     Ledsticklib stick = Ledsticklib(pin);
@@ -45,7 +42,7 @@ void application::apple(){
       }
     }
 if(lives <= 0){
-  lives = 5;
+  lives = 3;
   start = false;
   break;
 }

@@ -1,4 +1,6 @@
 #include "Ledsticklib.hpp"
+#ifndef APPLICATION_HPP
+#define APPLICATION_HPP
 
 class application{
 protected:
@@ -10,7 +12,7 @@ const int button2 = 5;
 int buttonState = 0; 
 bool conf = false;
 bool start = false;
-int lives = 5;
+int lives = 3;
 public:
 application(int* sticks):
 sticks (sticks )
@@ -18,6 +20,8 @@ sticks (sticks )
 void main_application();
 void waiting();
 void fall();
-void apple();
+void apple(int number);
 void basket();
 };
+
+#endif

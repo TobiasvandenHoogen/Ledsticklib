@@ -1,18 +1,46 @@
+/*!
+@file Ledsticklib.cpp
+*This is the source file of the Ledsticks library. 
+ */
+
 #include "Ledsticks.hpp"
 
+/*!
+@brief
+*This function will set the Ledsticks as output and is required for the basic
+*and special functions.
+*/
 void Ledsticks::start(){
     for(int i = 0; i < size; i++){
         array[i].start();
     }
 }
 
+/*!
+@brief 
+*This function sends the set byte(which is determined by advancedcolor)
+*to the Ledsticks.
+*/
 void Ledsticks::flush(){
     for(int i = 0; i < size; i++){
         array[i].flush();
     }
 }
 
-
+/*!
+@brief advancedcolor
+*This function sets the variabele byte to a colorvalue of a pixel.
+@param
+stick The stick which is in the array of Ledsticks.
+@param
+pixel  The pixel of the ledstick from 0 to 7. Give 8 for all pixels.
+@param 
+redvalue The value on how red the pixel should be (1 to 8 bits)
+@param
+greenvalue The value on how green the pixel should be (1 to 8 bits)
+@param
+bluevalue The value on how blue the pixel should be (1 to 8 bits)
+*/
 void Ledsticks::advancedcolor(uint8_t stick, uint8_t pixel, int redvalue
 ,int greenvalue, int bluevalue){
     auto c = Ledsticklib::color(redvalue, greenvalue, bluevalue);
@@ -27,12 +55,27 @@ void Ledsticks::advancedcolor(uint8_t stick, uint8_t pixel, int redvalue
     }
 }
 
+/*!
+@brief
+*This function resets Byte so that new bytes can be send again.
+*/
 void Ledsticks::reset(){
       for(int i = 0; i < size; i++){
         array[i].reset();
     }
 }
 
+/*!
+@brief 
+ This function repeatedly turns a pixel and compared to the blinkled function 
+ in the Ledsticklib library you can also give the stick of the array in the 
+ parameter.
+@param
+stick The stick which is in the array of Ledsticks.
+@param
+pixel  The pixel of the ledstick from 0 to 7. Give 8 for all pixels.
+@param
+*/
 void Ledsticks::blinkled(uint8_t stick, uint8_t pixel){
     auto w = Ledsticklib::color(50, 50, 50);
     auto c = Ledsticklib::color(0, 0, 0);
@@ -59,6 +102,12 @@ void Ledsticks::blinkled(uint8_t stick, uint8_t pixel){
 }
 
 
+
+/*!
+@brief
+This function turns on a pixel of each stick one at the time from left to right.
+@param
+*/
 void Ledsticks::horizontalkitt(){
  auto w = Ledsticklib::color(50, 50, 50);
  for(int i = 0; i < 8; i++){
@@ -79,7 +128,10 @@ for(int j = 0; j < size; j++){
  }
  
 }
-
+/*!
+@brief
+This function is like horizontalkitt but vertical and has flasing lights.
+Don't try this if you are sensitive to flashing lights. */
 void Ledsticks::flashing_kitt(){
  auto w = Ledsticklib::color(50, 50, 50);
  auto c = Ledsticklib::color(0, 0, 0);
@@ -95,6 +147,15 @@ void Ledsticks::flashing_kitt(){
     delay(50);
  }
 }
+
+/*!
+@brief
+*This function changes color on a pixel every 100 miliseconds.
+@param
+stick The stick which is in the array of Ledsticks.
+@param
+*pixel  The pixel of the ledstick from 0 to 7. Give 8 for all pixels.
+*/
 void Ledsticks::cyclecolor(uint8_t stick, uint8_t pixel){
     int red = 50;
     int green = 0;
@@ -135,6 +196,15 @@ void Ledsticks::cyclecolor(uint8_t stick, uint8_t pixel){
 }
 }
 
+/*!
+@brief
+*This function changes color of each pixel but instead of the function 
+*cyclecolor it changes color gradually instead of suddenly.
+@param
+stick The stick which is in the array of Ledsticks.
+@param
+*pixel  The pixel of the ledstick from 0 to 7. Give 8 for all pixels.
+*/
 void Ledsticks::rainbow(uint8_t stick, uint8_t pixel){
     int redvalue = 50;
     int greenvalue = 0;
@@ -174,15 +244,4 @@ void Ledsticks::rainbow(uint8_t stick, uint8_t pixel){
           delay(25);
       
 }
-}
-void Ledsticks::line(int xy1[2], int xy2[2]){
-auto w = Ledsticklib::color(50, 50, 50);
-for(int i = xy1[1]; i <= xy2[1]; i++){
-for(int j = xy1[0]; j <= xy2[0]; j++){
-    array[0].advancedcolor(j, w);
-}
-}
-this->flush();
-delay(50);
-this->reset();
 }

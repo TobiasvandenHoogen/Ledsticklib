@@ -162,19 +162,15 @@ void Ledsticklib::advancedcolor(uint16_t pixel, uint32_t colors){
 }
 }
 
-
-void Ledsticklib::simplecolor(uint16_t pixel, char color[]){
-}
-
 /*!
 @brief 
  This function repeatedly turns a pixel on and off and has required and 
  optional parameters.
 @param
 pixel  The pixel of the ledstick from 0 to 7. Give 8 for all pixels.
-@paramc      The 32 bit color value which can be used to blink the pixel in a different
+@param c      The 32 bit color value which can be used to blink the pixel in a different
        color.
-@paramd      Delay which can be used to blink the pixel faster/slower.
+@param d      Delay which can be used to blink the pixel faster/slower.
 */
 void Ledsticklib::blinkled(uint16_t pixel){
         this->reset();
@@ -288,7 +284,7 @@ void Ledsticklib::kitt(uint32_t c, int d){
 
 /*!
 @brief
-*This function changes color of each pixel every 100 miliseconds.
+*This function changes color on a  pixel every 100 miliseconds.
 @param
 *pixel  The pixel of the ledstick from 0 to 7. Give 8 for all pixels.
 */

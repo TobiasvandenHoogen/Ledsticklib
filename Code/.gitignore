@@ -1,0 +1,6 @@
+#To filter out doxygen files
+
+*.js
+*.html
+*.css
+*.png

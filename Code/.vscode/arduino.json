@@ -1,0 +1,5 @@
+{
+    "sketch": "application.ino\\application.ino",
+    "port": "COM4",
+    "board": "arduino:sam:arduino_due_x_dbg"
+}
